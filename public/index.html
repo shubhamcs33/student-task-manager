@@ -1,0 +1,2808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TaskFlow | Student Task Manager</title>
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+
+            min-height: 100vh;
+
+            color: #f4f9ff;
+
+            background:
+                radial-gradient(
+                    circle at 15% 15%,
+                    rgba(65, 165, 255, 0.22),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(90, 115, 255, 0.18),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 50% 100%,
+                    rgba(30, 125, 220, 0.18),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    135deg,
+                    #020b17,
+                    #03192d 45%,
+                    #02111f
+                );
+
+            overflow-x: hidden;
+        }
+
+
+        /* =====================================================
+           NIGHT SKY
+        ===================================================== */
+
+        .sky {
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            overflow: hidden;
+
+            z-index: 0;
+        }
+
+
+        /* =====================================================
+           STARS
+        ===================================================== */
+
+        .stars,
+        .stars::before,
+        .stars::after {
+
+            position: absolute;
+
+            width: 3px;
+            height: 3px;
+
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.95);
+
+            box-shadow:
+
+                70px 100px rgba(255,255,255,.75),
+                150px 220px rgba(170,225,255,.85),
+                270px 70px rgba(255,255,255,.65),
+                390px 180px rgba(170,225,255,.85),
+                520px 100px rgba(255,255,255,.8),
+                650px 280px rgba(170,225,255,.75),
+                780px 140px rgba(255,255,255,.7),
+                900px 70px rgba(160,220,255,.85),
+                1030px 250px rgba(255,255,255,.75),
+                1160px 120px rgba(190,230,255,.9),
+                1280px 310px rgba(255,255,255,.7),
+                1400px 170px rgba(160,220,255,.85),
+                1510px 80px rgba(255,255,255,.75),
+                1620px 290px rgba(180,230,255,.85),
+
+                90px 470px rgba(160,220,255,.75),
+                230px 620px rgba(255,255,255,.65),
+                370px 450px rgba(180,230,255,.85),
+                520px 570px rgba(255,255,255,.8),
+                690px 490px rgba(160,220,255,.75),
+                830px 650px rgba(255,255,255,.65),
+                980px 530px rgba(180,230,255,.85),
+                1130px 680px rgba(255,255,255,.75),
+                1280px 510px rgba(160,220,255,.85),
+                1430px 620px rgba(255,255,255,.65),
+                1570px 470px rgba(180,230,255,.85),
+                1700px 580px rgba(255,255,255,.75);
+
+            animation:
+                starMove 22s linear infinite;
+        }
+
+
+        .stars::before {
+
+            content: "";
+
+            left: 0;
+            top: 0;
+
+            opacity: 0.7;
+
+            transform: scale(0.7);
+
+            animation:
+                starMoveReverse 28s linear infinite,
+                twinkle 4s ease-in-out infinite;
+        }
+
+
+        .stars::after {
+
+            content: "";
+
+            left: 0;
+            top: 0;
+
+            opacity: 0.5;
+
+            transform: scale(1.4);
+
+            animation:
+                starMove 32s linear infinite,
+                twinkle 6s ease-in-out infinite;
+        }
+
+
+        /* =====================================================
+           STAR ANIMATION
+        ===================================================== */
+
+        @keyframes starMove {
+
+            0% {
+                transform:
+                    translate3d(0, 0, 0);
+            }
+
+            50% {
+                transform:
+                    translate3d(90px, 60px, 0);
+            }
+
+            100% {
+                transform:
+                    translate3d(180px, 120px, 0);
+            }
+        }
+
+
+        @keyframes starMoveReverse {
+
+            0% {
+                transform:
+                    translate3d(0, 0, 0)
+                    scale(0.7);
+            }
+
+            50% {
+                transform:
+                    translate3d(-70px, -45px, 0)
+                    scale(0.7);
+            }
+
+            100% {
+                transform:
+                    translate3d(-140px, -90px, 0)
+                    scale(0.7);
+            }
+        }
+
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.35;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+
+        /* =====================================================
+           CONSTELLATION
+        ===================================================== */
+
+        .constellation {
+
+            position: absolute;
+
+            width: 100%;
+            height: 100%;
+
+            opacity: 0.45;
+        }
+
+
+        .constellation line {
+
+            stroke:
+                rgba(105, 195, 255, 0.30);
+
+            stroke-width: 1;
+
+            animation:
+                constellationGlow 5s ease-in-out infinite;
+        }
+
+
+        .constellation circle {
+
+            fill:
+                #e3f6ff;
+
+            filter:
+                drop-shadow(
+                    0 0 7px
+                    rgba(90, 195, 255, 0.95)
+                );
+
+            animation:
+                constellationPulse 4s ease-in-out infinite;
+        }
+
+
+        @keyframes constellationGlow {
+
+            0%,
+            100% {
+                opacity: 0.2;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+
+        @keyframes constellationPulse {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+
+        /* =====================================================
+           APPLICATION
+        ===================================================== */
+
+        .app {
+
+            position: relative;
+
+            z-index: 2;
+
+            min-height: 100vh;
+
+            display: flex;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+
+            width: 250px;
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+            bottom: 0;
+
+            padding: 28px 18px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(2, 17, 35, 0.88),
+                    rgba(2, 24, 45, 0.72)
+                );
+
+            border-right:
+                1px solid
+                rgba(130, 210, 255, 0.14);
+
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+            z-index: 10;
+        }
+
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 0 10px;
+
+            margin-bottom: 45px;
+        }
+
+
+        .logo-icon {
+
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            font-size: 21px;
+
+            font-weight: 800;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #438eff,
+                    #7467ff
+                );
+
+            box-shadow:
+                0 0 24px
+                rgba(75, 150, 255, 0.48);
+        }
+
+
+        .logo h2 {
+
+            font-size: 18px;
+
+            color: #f3f9ff;
+        }
+
+
+        .logo span {
+
+            display: block;
+
+            color: #7896b2;
+
+            font-size: 11px;
+
+            margin-top: 3px;
+        }
+
+
+        .nav-title {
+
+            color: #5f7d99;
+
+            font-size: 10px;
+
+            letter-spacing: 1.5px;
+
+            text-transform: uppercase;
+
+            padding: 0 12px;
+
+            margin-bottom: 13px;
+        }
+
+
+        .nav-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            padding: 13px 14px;
+
+            margin-bottom: 7px;
+
+            border-radius: 11px;
+
+            color: #b5c9dc;
+
+            cursor: pointer;
+
+            transition:
+                background 0.25s,
+                color 0.25s,
+                transform 0.25s;
+        }
+
+
+        .nav-item:hover {
+
+            background:
+                rgba(73, 145, 220, 0.11);
+
+            color: white;
+
+            transform:
+                translateX(3px);
+        }
+
+
+        .nav-item.active {
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(74, 139, 255, 0.25),
+                    rgba(72, 116, 220, 0.07)
+                );
+
+            border-left:
+                3px solid
+                #6d9cff;
+
+            box-shadow:
+                inset 0 0 25px
+                rgba(75, 150, 255, 0.05);
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main {
+
+            width:
+                calc(100% - 250px);
+
+            margin-left: 250px;
+
+            padding:
+                35px 40px;
+        }
+
+
+        /* =====================================================
+           TOPBAR
+        ===================================================== */
+
+        .topbar {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 30px;
+        }
+
+
+        .welcome h1 {
+
+            font-size: 30px;
+
+            letter-spacing: -0.6px;
+
+            text-shadow:
+                0 0 25px
+                rgba(100, 190, 255, 0.15);
+        }
+
+
+        .welcome p {
+
+            margin-top: 6px;
+
+            color: #8faac3;
+
+            font-size: 14px;
+        }
+
+
+        .profile {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+        }
+
+
+        .profile strong {
+
+            color: #dcecff;
+        }
+
+
+        .avatar {
+
+            width: 44px;
+            height: 44px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            font-weight: 700;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #5597ff,
+                    #7366ff
+                );
+
+            box-shadow:
+                0 0 22px
+                rgba(78, 148, 255, 0.38);
+        }
+
+
+        /* =====================================================
+           STAT CARDS
+        ===================================================== */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .stat-card {
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 22px;
+
+            min-height: 145px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(12, 40, 70, 0.78),
+                    rgba(5, 24, 45, 0.64)
+                );
+
+            border:
+                1px solid
+                rgba(150, 220, 255, 0.14);
+
+            backdrop-filter:
+                blur(16px);
+
+            -webkit-backdrop-filter:
+                blur(16px);
+
+            box-shadow:
+                0 18px 45px
+                rgba(0, 0, 0, 0.25);
+
+            transition:
+                transform 0.25s,
+                border-color 0.25s;
+        }
+
+
+        .stat-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 120px;
+            height: 120px;
+
+            right: -55px;
+            top: -55px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(73, 157, 255, 0.12);
+
+            filter:
+                blur(10px);
+        }
+
+
+        .stat-card:hover {
+
+            transform:
+                translateY(-4px);
+
+            border-color:
+                rgba(120, 200, 255, 0.28);
+        }
+
+
+        .stat-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            color: #a7bfd5;
+
+            font-size: 13px;
+        }
+
+
+        .stat-icon {
+
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background:
+                rgba(80, 160, 255, 0.12);
+
+            border:
+                1px solid
+                rgba(120, 200, 255, 0.13);
+        }
+
+
+        .stat-number {
+
+            margin-top: 15px;
+
+            font-size: 28px;
+
+            font-weight: 750;
+
+            color: white;
+        }
+
+
+        .stat-label {
+
+            margin-top: 4px;
+
+            color: #718ea9;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           CONTENT
+        ===================================================== */
+
+        .content-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1.7fr 1fr;
+
+            gap: 22px;
+        }
+
+
+        .card {
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 25px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(10, 37, 65, 0.80),
+                    rgba(4, 21, 40, 0.70)
+                );
+
+            border:
+                1px solid
+                rgba(150, 220, 255, 0.15);
+
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+            box-shadow:
+                0 20px 55px
+                rgba(0, 0, 0, 0.28);
+        }
+
+
+        .card::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 200px;
+            height: 200px;
+
+            right: -100px;
+            bottom: -100px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(49, 143, 255, 0.08);
+
+            filter:
+                blur(25px);
+
+            pointer-events: none;
+        }
+
+
+        .card-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 21px;
+        }
+
+
+        .card-header h2 {
+
+            font-size: 19px;
+
+            color: #edf7ff;
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .task-form {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr auto;
+
+            gap: 10px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .task-input {
+
+            width: 100%;
+
+            padding:
+                14px 16px;
+
+            color: white;
+
+            background:
+                rgba(2, 18, 35, 0.70);
+
+            border:
+                1px solid
+                rgba(135, 205, 255, 0.18);
+
+            border-radius: 11px;
+
+            outline: none;
+
+            font-size: 14px;
+        }
+
+
+        .task-input::placeholder {
+
+            color: #64829e;
+        }
+
+
+        .task-input:focus {
+
+            border-color:
+                rgba(100, 180, 255, 0.55);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(70, 150, 255, 0.08);
+        }
+
+
+        .add-btn {
+
+            border: none;
+
+            padding:
+                0 21px;
+
+            border-radius: 11px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #448dff,
+                    #7067ff
+                );
+
+            font-weight: 650;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 25px
+                rgba(70, 130, 255, 0.22);
+
+            transition:
+                transform 0.2s,
+                box-shadow 0.2s;
+        }
+
+
+        .add-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 12px 30px
+                rgba(70, 130, 255, 0.35);
+        }
+
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
+        .search-box {
+
+            position: relative;
+
+            margin-bottom: 16px;
+        }
+
+
+        .search-box input {
+
+            width: 100%;
+
+            padding:
+                11px 14px 11px 38px;
+
+            border-radius: 10px;
+
+            border:
+                1px solid
+                rgba(135, 205, 255, 0.12);
+
+            background:
+                rgba(2, 18, 35, 0.52);
+
+            color: white;
+
+            outline: none;
+        }
+
+
+        .search-box input::placeholder {
+
+            color: #607e99;
+        }
+
+
+        .search-icon {
+
+            position: absolute;
+
+            left: 13px;
+            top: 10px;
+
+            color: #6887a5;
+        }
+
+
+        /* =====================================================
+           FILTERS
+        ===================================================== */
+
+        .filters {
+
+            display: flex;
+
+            gap: 8px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .filter {
+
+            padding:
+                8px 14px;
+
+            border-radius: 9px;
+
+            color: #a9c0d6;
+
+            border:
+                1px solid
+                rgba(135, 205, 255, 0.12);
+
+            background:
+                rgba(5, 24, 43, 0.55);
+
+            cursor: pointer;
+
+            font-size: 12px;
+        }
+
+
+        .filter:hover {
+
+            color: white;
+
+            border-color:
+                rgba(120, 200, 255, 0.28);
+        }
+
+
+        .filter.active {
+
+            color: white;
+
+            background:
+                rgba(76, 143, 255, 0.20);
+
+            border-color:
+                rgba(100, 175, 255, 0.40);
+        }
+
+
+        /* =====================================================
+           TASK
+        ===================================================== */
+
+        .task {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            padding:
+                15px 5px;
+
+            border-bottom:
+                1px solid
+                rgba(130, 190, 230, 0.08);
+
+            animation:
+                taskAppear 0.25s ease;
+        }
+
+
+        @keyframes taskAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(5px);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        .task:last-child {
+
+            border-bottom: none;
+        }
+
+
+        .check {
+
+            position: relative;
+
+            width: 21px;
+            height: 21px;
+
+            flex-shrink: 0;
+
+            border:
+                2px solid
+                #55718e;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+        }
+
+
+        .check:hover {
+
+            border-color:
+                #70adff;
+        }
+
+
+        .check.completed {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #448dff,
+                    #7267ff
+                );
+
+            border-color:
+                transparent;
+
+            box-shadow:
+                0 0 13px
+                rgba(70, 140, 255, 0.3);
+        }
+
+
+        .check.completed::after {
+
+            content:
+                "✓";
+
+            position: absolute;
+
+            left: 3px;
+            top: -2px;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+
+        .task-info {
+
+            flex: 1;
+
+            min-width: 0;
+        }
+
+
+        .task-title {
+
+            color: #e9f4ff;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            word-break: break-word;
+        }
+
+
+        .task-title.completed {
+
+            color: #66819c;
+
+            text-decoration:
+                line-through;
+        }
+
+
+        .task-meta {
+
+            display: flex;
+
+            gap: 7px;
+
+            margin-top: 6px;
+        }
+
+
+        .badge {
+
+            padding:
+                4px 8px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            font-weight: 650;
+        }
+
+
+        .student-badge {
+
+            color: #8bc7ff;
+
+            background:
+                rgba(60, 145, 255, 0.12);
+
+            border:
+                1px solid
+                rgba(80, 160, 255, 0.12);
+        }
+
+
+        .delete-btn {
+
+            border: none;
+
+            background:
+                transparent;
+
+            color: #718ca5;
+
+            cursor: pointer;
+
+            font-size: 16px;
+
+            opacity: 0.7;
+
+            transition:
+                0.2s;
+        }
+
+
+        .delete-btn:hover {
+
+            color: #ff8291;
+
+            opacity: 1;
+        }
+
+
+        /* =====================================================
+           PROGRESS
+        ===================================================== */
+
+        .progress-container {
+
+            margin-top: 22px;
+        }
+
+
+        .progress-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 10px;
+
+            color: #a7bfd5;
+
+            font-size: 13px;
+        }
+
+
+        .progress-header strong {
+
+            color: #eaf5ff;
+        }
+
+
+        .progress-bar {
+
+            width: 100%;
+
+            height: 10px;
+
+            overflow: hidden;
+
+            border-radius: 20px;
+
+            background:
+                rgba(100, 150, 190, 0.12);
+        }
+
+
+        .progress-fill {
+
+            height: 100%;
+
+            width: 0%;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #3d9bff,
+                    #7567ff
+                );
+
+            box-shadow:
+                0 0 16px
+                rgba(70, 150, 255, 0.5);
+
+            transition:
+                width 0.5s ease;
+        }
+
+
+        /* =====================================================
+           STUDY TIP
+        ===================================================== */
+
+        .study-tip {
+
+            margin-top: 35px;
+
+            padding: 19px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(70, 145, 220, 0.07);
+
+            border:
+                1px solid
+                rgba(120, 195, 255, 0.08);
+        }
+
+
+        .study-tip h3 {
+
+            font-size: 15px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .study-tip p {
+
+            color: #8da7c0;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           SYSTEM STATUS
+        ===================================================== */
+
+        .system-status {
+
+            margin-top: 20px;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(70, 150, 255, 0.06);
+
+            border:
+                1px solid
+                rgba(120, 200, 255, 0.08);
+        }
+
+
+        .status-content {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            color: #a8c8e3;
+
+            font-size: 12px;
+        }
+
+
+        .status-dot {
+
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background:
+                #4dd8a4;
+
+            box-shadow:
+                0 0 10px
+                rgba(77,216,164,.7);
+        }
+
+
+        /* =====================================================
+           EMPTY
+        ===================================================== */
+
+        .empty {
+
+            text-align: center;
+
+            padding:
+                38px 10px;
+
+            color: #58738e;
+
+            font-size: 13px;
+        }
+
+
+        .empty-icon {
+
+            font-size: 30px;
+
+            margin-bottom: 8px;
+
+            opacity: 0.7;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1050px) {
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .content-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+        }
+
+
+        @media (max-width: 720px) {
+
+            .sidebar {
+
+                display: none;
+            }
+
+            .main {
+
+                width: 100%;
+
+                margin-left: 0;
+
+                padding:
+                    25px 18px;
+            }
+
+            .stats {
+
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+            .task-form {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+            .add-btn {
+
+                height: 45px;
+            }
+
+            .welcome h1 {
+
+                font-size: 24px;
+            }
+        }
+
+
+        @media (max-width: 480px) {
+
+            .stats {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+            .topbar {
+
+                align-items:
+                    flex-start;
+            }
+
+            .profile strong {
+
+                display: none;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         BACKGROUND
+    ===================================================== -->
+
+    <div class="sky">
+
+        <div class="stars"></div>
+
+
+        <svg
+            class="constellation"
+            viewBox="0 0 1600 900"
+            preserveAspectRatio="none"
+        >
+
+            <!-- Top-left constellation -->
+
+            <line
+                x1="80"
+                y1="150"
+                x2="260"
+                y2="90"
+            />
+
+            <line
+                x1="260"
+                y1="90"
+                x2="410"
+                y2="180"
+            />
+
+            <line
+                x1="410"
+                y1="180"
+                x2="560"
+                y2="120"
+            />
+
+            <line
+                x1="560"
+                y1="120"
+                x2="700"
+                y2="230"
+            />
+
+
+            <circle
+                cx="80"
+                cy="150"
+                r="3"
+            />
+
+            <circle
+                cx="260"
+                cy="90"
+                r="4"
+            />
+
+            <circle
+                cx="410"
+                cy="180"
+                r="3"
+            />
+
+            <circle
+                cx="560"
+                cy="120"
+                r="4"
+            />
+
+            <circle
+                cx="700"
+                cy="230"
+                r="3"
+            />
+
+
+            <!-- Top-right constellation -->
+
+            <line
+                x1="900"
+                y1="90"
+                x2="1050"
+                y2="180"
+            />
+
+            <line
+                x1="1050"
+                y1="180"
+                x2="1190"
+                y2="100"
+            />
+
+            <line
+                x1="1190"
+                y1="100"
+                x2="1340"
+                y2="230"
+            />
+
+            <line
+                x1="1340"
+                y1="230"
+                x2="1500"
+                y2="150"
+            />
+
+
+            <circle
+                cx="900"
+                cy="90"
+                r="3"
+            />
+
+            <circle
+                cx="1050"
+                cy="180"
+                r="4"
+            />
+
+            <circle
+                cx="1190"
+                cy="100"
+                r="3"
+            />
+
+            <circle
+                cx="1340"
+                cy="230"
+                r="4"
+            />
+
+            <circle
+                cx="1500"
+                cy="150"
+                r="3"
+            />
+
+
+            <!-- Bottom-left constellation -->
+
+            <line
+                x1="180"
+                y1="650"
+                x2="330"
+                y2="560"
+            />
+
+            <line
+                x1="330"
+                y1="560"
+                x2="500"
+                y2="680"
+            />
+
+            <line
+                x1="500"
+                y1="680"
+                x2="650"
+                y2="580"
+            />
+
+            <line
+                x1="650"
+                y1="580"
+                x2="800"
+                y2="700"
+            />
+
+
+            <circle
+                cx="180"
+                cy="650"
+                r="3"
+            />
+
+            <circle
+                cx="330"
+                cy="560"
+                r="4"
+            />
+
+            <circle
+                cx="500"
+                cy="680"
+                r="3"
+            />
+
+            <circle
+                cx="650"
+                cy="580"
+                r="4"
+            />
+
+            <circle
+                cx="800"
+                cy="700"
+                r="3"
+            />
+
+
+            <!-- Bottom-right constellation -->
+
+            <line
+                x1="980"
+                y1="580"
+                x2="1120"
+                y2="690"
+            />
+
+            <line
+                x1="1120"
+                y1="690"
+                x2="1270"
+                y2="560"
+            />
+
+            <line
+                x1="1270"
+                y1="560"
+                x2="1420"
+                y2="680"
+            />
+
+            <line
+                x1="1420"
+                y1="680"
+                x2="1560"
+                y2="570"
+            />
+
+
+            <circle
+                cx="980"
+                cy="580"
+                r="3"
+            />
+
+            <circle
+                cx="1120"
+                cy="690"
+                r="4"
+            />
+
+            <circle
+                cx="1270"
+                cy="560"
+                r="3"
+            />
+
+            <circle
+                cx="1420"
+                cy="680"
+                r="4"
+            />
+
+            <circle
+                cx="1560"
+                cy="570"
+                r="3"
+            />
+
+        </svg>
+
+    </div>
+
+
+    <!-- =====================================================
+         APPLICATION
+    ===================================================== -->
+
+    <div class="app">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+
+            <div class="logo">
+
+                <div class="logo-icon">
+                    ✓
+                </div>
+
+                <div>
+
+                    <h2>
+                        TaskFlow
+                    </h2>
+
+                    <span>
+                        Student Manager
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="nav-title">
+                Menu
+            </div>
+
+
+            <div
+                class="nav-item active"
+            >
+                🏠
+                Dashboard
+            </div>
+
+
+            <div
+                class="nav-item"
+                onclick="focusTasks()"
+            >
+                📋
+                My Tasks
+            </div>
+
+
+            <div
+                class="nav-item"
+            >
+                📅
+                Calendar
+            </div>
+
+
+            <div
+                class="nav-item"
+                onclick="focusProgress()"
+            >
+                📊
+                Progress
+            </div>
+
+
+        </aside>
+
+
+        <!-- MAIN -->
+
+        <main class="main">
+
+
+            <!-- TOPBAR -->
+
+            <div class="topbar">
+
+                <div class="welcome">
+
+                    <h1>
+                        Good evening 👋
+                    </h1>
+
+                    <p>
+                        Stay organized and
+                        get your work done.
+                    </p>
+
+                </div>
+
+
+                <div class="profile">
+
+                    <strong>
+                        Student
+                    </strong>
+
+                    <div class="avatar">
+                        S
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- STATISTICS -->
+
+            <section class="stats">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <span>
+                            Total Tasks
+                        </span>
+
+                        <div class="stat-icon">
+                            📋
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="stat-number"
+                        id="totalTasks"
+                    >
+                        0
+                    </div>
+
+
+                    <div class="stat-label">
+                        All your tasks
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <span>
+                            Completed
+                        </span>
+
+                        <div class="stat-icon">
+                            ✅
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="stat-number"
+                        id="completedTasks"
+                    >
+                        0
+                    </div>
+
+
+                    <div class="stat-label">
+                        Tasks completed
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <span>
+                            Pending
+                        </span>
+
+                        <div class="stat-icon">
+                            ⏳
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="stat-number"
+                        id="pendingTasks"
+                    >
+                        0
+                    </div>
+
+
+                    <div class="stat-label">
+                        Tasks remaining
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <span>
+                            Progress
+                        </span>
+
+                        <div class="stat-icon">
+                            📈
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="stat-number"
+                        id="progressText"
+                    >
+                        0%
+                    </div>
+
+
+                    <div class="stat-label">
+                        Overall completion
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- CONTENT -->
+
+            <section class="content-grid">
+
+
+                <!-- TASK CARD -->
+
+                <div
+                    class="card"
+                    id="tasksCard"
+                >
+
+
+                    <div class="card-header">
+
+                        <h2>
+                            My Tasks
+                        </h2>
+
+                    </div>
+
+
+                    <!-- ADD -->
+
+                    <div class="task-form">
+
+                        <input
+                            id="taskInput"
+                            class="task-input"
+                            type="text"
+                            placeholder="What do you need to accomplish?"
+                            autocomplete="off"
+                        >
+
+
+                        <button
+                            class="add-btn"
+                            onclick="addTask()"
+                        >
+                            + Add Task
+                        </button>
+
+                    </div>
+
+
+                    <!-- SEARCH -->
+
+                    <div class="search-box">
+
+                        <span
+                            class="search-icon"
+                        >
+                            🔍
+                        </span>
+
+
+                        <input
+                            id="searchInput"
+                            type="text"
+                            placeholder="Search your tasks..."
+                            oninput="renderTasks()"
+                        >
+
+                    </div>
+
+
+                    <!-- FILTER -->
+
+                    <div class="filters">
+
+                        <button
+                            class="filter active"
+                            onclick="
+                                setFilter(
+                                    'all',
+                                    this
+                                )
+                            "
+                        >
+                            All
+                        </button>
+
+
+                        <button
+                            class="filter"
+                            onclick="
+                                setFilter(
+                                    'pending',
+                                    this
+                                )
+                            "
+                        >
+                            Pending
+                        </button>
+
+
+                        <button
+                            class="filter"
+                            onclick="
+                                setFilter(
+                                    'completed',
+                                    this
+                                )
+                            "
+                        >
+                            Completed
+                        </button>
+
+                    </div>
+
+
+                    <!-- TASK LIST -->
+
+                    <div
+                        id="taskList"
+                    ></div>
+
+
+                </div>
+
+
+                <!-- PROGRESS CARD -->
+
+                <div
+                    class="card"
+                    id="progressCard"
+                >
+
+
+                    <div class="card-header">
+
+                        <h2>
+                            Task Progress
+                        </h2>
+
+                    </div>
+
+
+                    <p
+                        style="
+                            color:#89a4bd;
+                            font-size:13px;
+                            line-height:1.6;
+                        "
+                    >
+                        Keep completing your
+                        tasks to reach your goals.
+                    </p>
+
+
+                    <div
+                        class="progress-container"
+                    >
+
+                        <div
+                            class="progress-header"
+                        >
+
+                            <span>
+                                Completion
+                            </span>
+
+
+                            <strong
+                                id="progressPercent"
+                            >
+                                0%
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="progress-bar"
+                        >
+
+                            <div
+                                class="progress-fill"
+                                id="progressFill"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STUDY TIP -->
+
+                    <div
+                        class="study-tip"
+                    >
+
+                        <h3>
+                            💡 Study Tip
+                        </h3>
+
+
+                        <p>
+                            Break large assignments
+                            into smaller tasks.
+                            Completing small tasks
+                            consistently makes bigger
+                            projects easier.
+                        </p>
+
+                    </div>
+
+
+                    <!-- SYSTEM STATUS -->
+
+                    <div
+                        class="system-status"
+                    >
+
+                        <div
+                            class="status-content"
+                        >
+
+                            <span
+                                class="status-dot"
+                            ></span>
+
+                            Task system active
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
+
+    <script>
+
+
+        /* =====================================================
+           TASK DATA
+        ===================================================== */
+
+        let tasks =
+            JSON.parse(
+                localStorage.getItem(
+                    "studentTasks"
+                )
+            ) || [];
+
+
+        let currentFilter =
+            "all";
+
+
+        /* =====================================================
+           SAVE TASKS
+        ===================================================== */
+
+        function saveTasks() {
+
+            localStorage.setItem(
+                "studentTasks",
+                JSON.stringify(tasks)
+            );
+
+        }
+
+
+        /* =====================================================
+           ADD TASK
+        ===================================================== */
+
+        function addTask() {
+
+            const input =
+                document.getElementById(
+                    "taskInput"
+                );
+
+
+            const title =
+                input.value.trim();
+
+
+            if (!title) {
+
+                input.focus();
+
+                return;
+
+            }
+
+
+            const task = {
+
+                id: Date.now(),
+
+                title: title,
+
+                completed: false
+
+            };
+
+
+            tasks.unshift(task);
+
+
+            saveTasks();
+
+
+            input.value = "";
+
+
+            renderTasks();
+
+
+            input.focus();
+
+        }
+
+
+        /* =====================================================
+           COMPLETE / UNCOMPLETE
+        ===================================================== */
+
+        function toggleTask(id) {
+
+            tasks =
+                tasks.map(
+                    task => {
+
+                        if (
+                            task.id === id
+                        ) {
+
+                            return {
+
+                                ...task,
+
+                                completed:
+                                    !task.completed
+
+                            };
+
+                        }
+
+
+                        return task;
+
+                    }
+                );
+
+
+            saveTasks();
+
+
+            renderTasks();
+
+        }
+
+
+        /* =====================================================
+           DELETE
+        ===================================================== */
+
+        function deleteTask(id) {
+
+            tasks =
+                tasks.filter(
+                    task =>
+                        task.id !== id
+                );
+
+
+            saveTasks();
+
+
+            renderTasks();
+
+        }
+
+
+        /* =====================================================
+           FILTER
+        ===================================================== */
+
+        function setFilter(
+            filter,
+            button
+        ) {
+
+            currentFilter =
+                filter;
+
+
+            document
+                .querySelectorAll(
+                    ".filter"
+                )
+                .forEach(
+                    btn =>
+                        btn.classList
+                            .remove(
+                                "active"
+                            )
+                );
+
+
+            button.classList
+                .add("active");
+
+
+            renderTasks();
+
+        }
+
+
+        /* =====================================================
+           RENDER
+        ===================================================== */
+
+        function renderTasks() {
+
+            const list =
+                document.getElementById(
+                    "taskList"
+                );
+
+
+            const search =
+                document
+                    .getElementById(
+                        "searchInput"
+                    )
+                    .value
+                    .toLowerCase()
+                    .trim();
+
+
+            let filteredTasks =
+                tasks;
+
+
+            /* FILTER */
+
+            if (
+                currentFilter ===
+                "pending"
+            ) {
+
+                filteredTasks =
+                    tasks.filter(
+                        task =>
+                            !task.completed
+                    );
+
+            }
+
+
+            if (
+                currentFilter ===
+                "completed"
+            ) {
+
+                filteredTasks =
+                    tasks.filter(
+                        task =>
+                            task.completed
+                    );
+
+            }
+
+
+            /* SEARCH */
+
+            if (search) {
+
+                filteredTasks =
+                    filteredTasks.filter(
+                        task =>
+                            task.title
+                                .toLowerCase()
+                                .includes(
+                                    search
+                                )
+                    );
+
+            }
+
+
+            /* EMPTY */
+
+            if (
+                filteredTasks.length === 0
+            ) {
+
+                list.innerHTML = `
+
+                    <div class="empty">
+
+                        <div class="empty-icon">
+                            ✦
+                        </div>
+
+                        No tasks here yet.
+
+                    </div>
+
+                `;
+
+            }
+
+
+            /* DISPLAY */
+
+            else {
+
+                list.innerHTML =
+                    filteredTasks
+                        .map(
+                            task => `
+
+                                <div
+                                    class="task"
+                                >
+
+                                    <div
+                                        class="
+                                            check
+                                            ${
+                                                task.completed
+                                                    ? "completed"
+                                                    : ""
+                                            }
+                                        "
+                                        onclick="
+                                            toggleTask(
+                                                ${task.id}
+                                            )
+                                        "
+                                    ></div>
+
+
+                                    <div
+                                        class="task-info"
+                                    >
+
+                                        <div
+                                            class="
+                                                task-title
+                                                ${
+                                                    task.completed
+                                                        ? "completed"
+                                                        : ""
+                                                }
+                                            "
+                                        >
+                                            ${escapeHTML(
+                                                task.title
+                                            )}
+                                        </div>
+
+
+                                        <div
+                                            class="task-meta"
+                                        >
+
+                                            <span
+                                                class="
+                                                    badge
+                                                    student-badge
+                                                "
+                                            >
+                                                Student Task
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <button
+                                        class="delete-btn"
+                                        onclick="
+                                            deleteTask(
+                                                ${task.id}
+                                            )
+                                        "
+                                        title="Delete task"
+                                    >
+                                        🗑️
+                                    </button>
+
+                                </div>
+
+                            `
+                        )
+                        .join("");
+
+            }
+
+
+            updateStats();
+
+        }
+
+
+        /* =====================================================
+           UPDATE STATS
+        ===================================================== */
+
+        function updateStats() {
+
+            const total =
+                tasks.length;
+
+
+            const completed =
+                tasks.filter(
+                    task =>
+                        task.completed
+                ).length;
+
+
+            const pending =
+                total -
+                completed;
+
+
+            const progress =
+                total === 0
+                    ? 0
+                    : Math.round(
+                        (
+                            completed /
+                            total
+                        ) * 100
+                    );
+
+
+            document
+                .getElementById(
+                    "totalTasks"
+                )
+                .textContent =
+                total;
+
+
+            document
+                .getElementById(
+                    "completedTasks"
+                )
+                .textContent =
+                completed;
+
+
+            document
+                .getElementById(
+                    "pendingTasks"
+                )
+                .textContent =
+                pending;
+
+
+            document
+                .getElementById(
+                    "progressText"
+                )
+                .textContent =
+                progress + "%";
+
+
+            document
+                .getElementById(
+                    "progressPercent"
+                )
+                .textContent =
+                progress + "%";
+
+
+            document
+                .getElementById(
+                    "progressFill"
+                )
+                .style
+                .width =
+                progress + "%";
+
+        }
+
+
+        /* =====================================================
+           ESCAPE HTML
+        ===================================================== */
+
+        function escapeHTML(
+            text
+        ) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.textContent =
+                text;
+
+
+            return div.innerHTML;
+
+        }
+
+
+        /* =====================================================
+           ENTER TO ADD
+        ===================================================== */
+
+        document
+            .getElementById(
+                "taskInput"
+            )
+            .addEventListener(
+                "keydown",
+                function(event) {
+
+                    if (
+                        event.key ===
+                        "Enter"
+                    ) {
+
+                        addTask();
+
+                    }
+
+                }
+            );
+
+
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
+
+        function focusTasks() {
+
+            document
+                .getElementById(
+                    "tasksCard"
+                )
+                .scrollIntoView({
+                    behavior:
+                        "smooth"
+                });
+
+        }
+
+
+        function focusProgress() {
+
+            document
+                .getElementById(
+                    "progressCard"
+                )
+                .scrollIntoView({
+                    behavior:
+                        "smooth"
+                });
+
+        }
+
+
+        /* =====================================================
+           START
+        ===================================================== */
+
+        renderTasks();
+
+    </script>
+
+</body>
+</html>
