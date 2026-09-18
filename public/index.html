@@ -298,6 +298,7 @@
         ===================================================== */
 
         .app {
+            display: none;
 
             position: relative;
 
@@ -1762,11 +1763,324 @@
             }
         }
 
+
+        /* =====================================================
+           AUTHENTICATION
+        ===================================================== */
+
+        .auth-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(65,165,255,.18), transparent 30%),
+                radial-gradient(circle at 80% 80%, rgba(116,103,255,.18), transparent 30%),
+                linear-gradient(135deg, #020b17, #03192d 48%, #02111f);
+            overflow: auto;
+        }
+
+        .auth-card {
+            width: min(440px, 100%);
+            padding: 34px;
+            border-radius: 24px;
+            background: linear-gradient(145deg, rgba(10,37,65,.88), rgba(3,20,38,.82));
+            border: 1px solid rgba(150,220,255,.18);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 25px 80px rgba(0,0,0,.45);
+            position: relative;
+            z-index: 2;
+        }
+
+        .auth-brand {
+            text-align: center;
+            margin-bottom: 26px;
+        }
+
+        .auth-logo {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            font-size: 28px;
+            font-weight: 800;
+            color: white;
+            background: linear-gradient(135deg, #438eff, #7467ff);
+            box-shadow: 0 0 30px rgba(75,150,255,.42);
+        }
+
+        .auth-brand h1 {
+            font-size: 27px;
+            color: #f4f9ff;
+        }
+
+        .auth-brand p {
+            margin-top: 6px;
+            color: #89a7c1;
+            font-size: 13px;
+        }
+
+        .auth-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 22px;
+            padding: 5px;
+            border-radius: 12px;
+            background: rgba(2,18,35,.55);
+            border: 1px solid rgba(135,205,255,.10);
+        }
+
+        .auth-tab {
+            border: none;
+            border-radius: 9px;
+            padding: 11px;
+            color: #8da9c1;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 650;
+            transition: .2s;
+        }
+
+        .auth-tab.active {
+            color: white;
+            background: rgba(76,143,255,.20);
+            border: 1px solid rgba(100,175,255,.28);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+            animation: pageFade .22s ease;
+        }
+
+        .auth-form h2 {
+            font-size: 20px;
+            color: #edf7ff;
+            margin-bottom: 7px;
+        }
+
+        .auth-form > p {
+            color: #7896b2;
+            font-size: 12px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .auth-field {
+            margin-bottom: 14px;
+        }
+
+        .auth-field label {
+            display: block;
+            margin-bottom: 7px;
+            color: #a9bfd5;
+            font-size: 12px;
+        }
+
+        .auth-field input {
+            width: 100%;
+            padding: 13px 14px;
+            border-radius: 11px;
+            border: 1px solid rgba(135,205,255,.15);
+            outline: none;
+            background: rgba(2,18,35,.68);
+            color: white;
+            font-size: 14px;
+        }
+
+        .auth-field input::placeholder {
+            color: #5f7e9b;
+        }
+
+        .auth-field input:focus {
+            border-color: rgba(100,180,255,.55);
+            box-shadow: 0 0 0 3px rgba(70,150,255,.08);
+        }
+
+        .auth-submit {
+            width: 100%;
+            margin-top: 5px;
+            padding: 13px 16px;
+            border: none;
+            border-radius: 11px;
+            color: white;
+            background: linear-gradient(135deg, #448dff, #7067ff);
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(70,130,255,.22);
+            transition: .2s;
+        }
+
+        .auth-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(70,130,255,.35);
+        }
+
+        .auth-message {
+            min-height: 20px;
+            margin: 12px 0 0;
+            text-align: center;
+            color: #ff9daa;
+            font-size: 12px;
+            line-height: 1.45;
+        }
+
+        .auth-note {
+            margin-top: 18px;
+            padding: 11px 12px;
+            border-radius: 10px;
+            color: #7694ad;
+            background: rgba(70,145,220,.06);
+            border: 1px solid rgba(120,195,255,.08);
+            font-size: 10px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .signout-btn {
+            width: 100%;
+            margin-top: 24px;
+            padding: 11px 13px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,130,145,.14);
+            color: #c9d9e8;
+            background: rgba(255,100,120,.05);
+            cursor: pointer;
+            font-size: 12px;
+            text-align: left;
+            transition: .2s;
+        }
+
+        .signout-btn:hover {
+            color: white;
+            background: rgba(255,100,120,.10);
+            border-color: rgba(255,130,145,.28);
+        }
+
+        .profile-email {
+            margin-top: 5px;
+            color: #6686a2;
+            font-size: 11px;
+            word-break: break-all;
+        }
+
+        @media (max-width: 480px) {
+            .auth-card {
+                padding: 25px 20px;
+            }
+        }
+
     </style>
 </head>
 
 
 <body>
+
+
+    <!-- =====================================================
+         LOGIN / CREATE ACCOUNT
+    ===================================================== -->
+    <section id="authScreen" class="auth-screen">
+
+        <div class="auth-card">
+
+            <div class="auth-brand">
+                <div class="auth-logo">✓</div>
+                <h1>TaskFlow</h1>
+                <p>Student Task Manager</p>
+            </div>
+
+            <div class="auth-tabs">
+                <button id="loginTab" class="auth-tab active" type="button"
+                    onclick="switchAuth('login')">
+                    Login
+                </button>
+                <button id="signupTab" class="auth-tab" type="button"
+                    onclick="switchAuth('signup')">
+                    Create Account
+                </button>
+            </div>
+
+            <form id="loginForm" class="auth-form active" onsubmit="loginUser(event)">
+                <h2>Welcome back 👋</h2>
+                <p>Login with your email and password to open your TaskFlow dashboard.</p>
+
+                <div class="auth-field">
+                    <label for="loginEmail">Email</label>
+                    <input id="loginEmail" type="email"
+                        placeholder="student@example.com"
+                        autocomplete="email" required>
+                </div>
+
+                <div class="auth-field">
+                    <label for="loginPassword">Password</label>
+                    <input id="loginPassword" type="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password" required>
+                </div>
+
+                <button class="auth-submit" type="submit">Login</button>
+                <div id="loginMessage" class="auth-message"></div>
+            </form>
+
+            <form id="signupForm" class="auth-form" onsubmit="createAccount(event)">
+                <h2>Create your account 🚀</h2>
+                <p>Create a student account to keep your TaskFlow tasks separate from other users.</p>
+
+                <div class="auth-field">
+                    <label for="signupName">Full Name</label>
+                    <input id="signupName" type="text"
+                        placeholder="Your name"
+                        autocomplete="name" required>
+                </div>
+
+                <div class="auth-field">
+                    <label for="signupEmail">Email</label>
+                    <input id="signupEmail" type="email"
+                        placeholder="student@example.com"
+                        autocomplete="email" required>
+                </div>
+
+                <div class="auth-field">
+                    <label for="signupPassword">Password</label>
+                    <input id="signupPassword" type="password"
+                        placeholder="Minimum 6 characters"
+                        minlength="6"
+                        autocomplete="new-password" required>
+                </div>
+
+                <div class="auth-field">
+                    <label for="signupConfirm">Confirm Password</label>
+                    <input id="signupConfirm" type="password"
+                        placeholder="Re-enter your password"
+                        minlength="6"
+                        autocomplete="new-password" required>
+                </div>
+
+                <button class="auth-submit" type="submit">Create Account</button>
+                <div id="signupMessage" class="auth-message"></div>
+            </form>
+
+            <div class="auth-note">
+                🔐 Your account is managed by Firebase Authentication. Passwords are not stored in this browser.
+                Task data is currently stored locally in your browser for this project.
+            </div>
+
+        </div>
+
+    </section>
+
 
 
     <!-- =====================================================
@@ -2113,6 +2427,10 @@
                 Progress
             </div>
 
+            <button class="signout-btn" onclick="signOut()" title="Sign out of TaskFlow">
+                ↪️ &nbsp; Sign Out
+            </button>
+
 
         </aside>
 
@@ -2147,11 +2465,11 @@
                     title="Open Profile"
                 >
 
-                    <strong>
+                    <strong id="topUserName">
                         Student
                     </strong>
 
-                    <div class="avatar">
+                    <div class="avatar" id="topUserAvatar">
                         S
                     </div>
 
@@ -2671,9 +2989,9 @@
 
                 <div class="profile-layout">
                     <div class="card profile-hero">
-                        <div class="profile-big-avatar">S</div>
-                        <h2>Student</h2>
-                        <p>Student Task Manager</p>
+                        <div class="profile-big-avatar" id="profileAvatar">S</div>
+                        <h2 id="profileName">Student</h2>
+                        <p id="profileEmail" class="profile-email">student@example.com</p>
 
                         <div class="profile-stat-grid">
                             <div class="mini-stat">
@@ -2699,7 +3017,7 @@
                         <div class="profile-info">
                             <div class="profile-row">
                                 <span>Name</span>
-                                <strong>Student</strong>
+                                <strong id="profileInfoName">Student</strong>
                             </div>
                             <div class="profile-row">
                                 <span>Role</span>
@@ -2711,11 +3029,11 @@
                             </div>
                             <div class="profile-row">
                                 <span>Account Type</span>
-                                <strong>Local Student Profile</strong>
+                                <strong>Firebase Account</strong>
                             </div>
                             <div class="profile-row">
                                 <span>Data Storage</span>
-                                <strong>Browser Local Storage</strong>
+                                <strong>Firebase Authentication</strong>
                             </div>
                         </div>
                     </div>
@@ -2733,6 +3051,34 @@
          JAVASCRIPT
     ===================================================== -->
 
+    <!-- Firebase Authentication -->
+    <script type="module">
+        import { auth } from "./firebase-config.js";
+        import {
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            signOut as firebaseSignOut,
+            onAuthStateChanged,
+            sendEmailVerification,
+            updateProfile
+        } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+        window.taskflowAuth = auth;
+        window.taskflowFirebase = {
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            firebaseSignOut,
+            onAuthStateChanged,
+            sendEmailVerification,
+            updateProfile
+        };
+
+        window.dispatchEvent(
+            new Event("firebase-ready")
+        );
+    </script>
+
+
     <script>
 
 
@@ -2740,16 +3086,357 @@
            TASK DATA
         ===================================================== */
 
-        let tasks =
-            JSON.parse(
+        /* =====================================================
+           ACCOUNT / AUTH DATA
+        ===================================================== */
+
+        let currentUser = null;
+
+        let tasks = [];
+
+        let currentFilter = "all";
+
+
+        function taskStorageKey(email) {
+            return "studentTasks_" + email.toLowerCase();
+        }
+
+
+        function loadTasksForUser() {
+            if (!currentUser) {
+                tasks = [];
+                return;
+            }
+
+            tasks = JSON.parse(
                 localStorage.getItem(
-                    "studentTasks"
+                    taskStorageKey(currentUser.email)
                 )
             ) || [];
+        }
 
 
-        let currentFilter =
-            "all";
+        function updateUserUI() {
+            if (!currentUser) return;
+
+            const name =
+                currentUser.name || "Student";
+
+            const initial =
+                name.trim().charAt(0).toUpperCase() || "S";
+
+            const topName =
+                document.getElementById("topUserName");
+
+            const topAvatar =
+                document.getElementById("topUserAvatar");
+
+            const profileName =
+                document.getElementById("profileName");
+
+            const profileEmail =
+                document.getElementById("profileEmail");
+
+            const profileAvatar =
+                document.getElementById("profileAvatar");
+
+            const profileInfoName =
+                document.getElementById("profileInfoName");
+
+            if (topName) topName.textContent = name;
+            if (topAvatar) topAvatar.textContent = initial;
+            if (profileName) profileName.textContent = name;
+            if (profileEmail) profileEmail.textContent = currentUser.email;
+            if (profileAvatar) profileAvatar.textContent = initial;
+            if (profileInfoName) profileInfoName.textContent = name;
+        }
+
+
+        function showAuthenticatedApp() {
+            const authScreen =
+                document.getElementById("authScreen");
+
+            const app =
+                document.querySelector(".app");
+
+            if (authScreen) authScreen.style.display = "none";
+            if (app) app.style.display = "flex";
+
+            updateUserUI();
+            loadTasksForUser();
+            renderTasks();
+            renderTasksPage();
+            renderProgressPage();
+            renderProfilePage();
+        }
+
+
+        function showLoginScreen() {
+            const authScreen =
+                document.getElementById("authScreen");
+
+            const app =
+                document.querySelector(".app");
+
+            if (authScreen) authScreen.style.display = "flex";
+            if (app) app.style.display = "none";
+        }
+
+
+        function switchAuth(mode) {
+            const loginForm =
+                document.getElementById("loginForm");
+
+            const signupForm =
+                document.getElementById("signupForm");
+
+            const loginTab =
+                document.getElementById("loginTab");
+
+            const signupTab =
+                document.getElementById("signupTab");
+
+            document.getElementById("loginMessage").textContent = "";
+            document.getElementById("signupMessage").textContent = "";
+
+            if (mode === "signup") {
+                loginForm.classList.remove("active");
+                signupForm.classList.add("active");
+                loginTab.classList.remove("active");
+                signupTab.classList.add("active");
+            } else {
+                signupForm.classList.remove("active");
+                loginForm.classList.add("active");
+                signupTab.classList.remove("active");
+                loginTab.classList.add("active");
+            }
+        }
+
+
+        function firebaseErrorMessage(error) {
+            const code = error?.code || "";
+
+            switch (code) {
+                case "auth/email-already-in-use":
+                    return "An account with this email already exists. Please login.";
+                case "auth/invalid-email":
+                    return "Please enter a valid email address.";
+                case "auth/weak-password":
+                    return "Password is too weak. Use at least 6 characters.";
+                case "auth/invalid-credential":
+                case "auth/wrong-password":
+                case "auth/user-not-found":
+                    return "Invalid email or password.";
+                case "auth/too-many-requests":
+                    return "Too many attempts. Please wait and try again.";
+                case "auth/network-request-failed":
+                    return "Network error. Please check your internet connection.";
+                default:
+                    return error?.message || "Something went wrong. Please try again.";
+            }
+        }
+
+
+        async function createAccount(event) {
+            event.preventDefault();
+
+            const name =
+                document.getElementById("signupName").value.trim();
+
+            const email =
+                document.getElementById("signupEmail").value.trim().toLowerCase();
+
+            const password =
+                document.getElementById("signupPassword").value;
+
+            const confirm =
+                document.getElementById("signupConfirm").value;
+
+            const message =
+                document.getElementById("signupMessage");
+
+            if (!name || !email || !password || !confirm) {
+                message.textContent = "Please fill in all fields.";
+                return;
+            }
+
+            if (password.length < 6) {
+                message.textContent = "Password must be at least 6 characters.";
+                return;
+            }
+
+            if (password !== confirm) {
+                message.textContent = "Passwords do not match.";
+                return;
+            }
+
+            if (!window.taskflowFirebase || !window.taskflowAuth) {
+                message.textContent = "Firebase is still loading. Please try again.";
+                return;
+            }
+
+            try {
+                const credential =
+                    await window.taskflowFirebase.createUserWithEmailAndPassword(
+                        window.taskflowAuth,
+                        email,
+                        password
+                    );
+
+                await window.taskflowFirebase.updateProfile(
+                    credential.user,
+                    { displayName: name }
+                );
+
+                await window.taskflowFirebase.sendEmailVerification(
+                    credential.user
+                );
+
+                message.textContent =
+                    "Account created! A verification email was sent to " +
+                    email + ". Verify your email, then login.";
+
+                document.getElementById("signupForm").reset();
+
+                await window.taskflowFirebase.firebaseSignOut(
+                    window.taskflowAuth
+                );
+
+                switchAuth("login");
+                document.getElementById("loginMessage").textContent =
+                    "Verification email sent. Verify your email before logging in.";
+            } catch (error) {
+                console.error("Firebase signup error:", error);
+                message.textContent = firebaseErrorMessage(error);
+            }
+        }
+
+
+        async function loginUser(event) {
+            event.preventDefault();
+
+            const email =
+                document.getElementById("loginEmail").value.trim().toLowerCase();
+
+            const password =
+                document.getElementById("loginPassword").value;
+
+            const message =
+                document.getElementById("loginMessage");
+
+            if (!email || !password) {
+                message.textContent = "Please enter your email and password.";
+                return;
+            }
+
+            if (!window.taskflowFirebase || !window.taskflowAuth) {
+                message.textContent = "Firebase is still loading. Please try again.";
+                return;
+            }
+
+            try {
+                const credential =
+                    await window.taskflowFirebase.signInWithEmailAndPassword(
+                        window.taskflowAuth,
+                        email,
+                        password
+                    );
+
+                const user = credential.user;
+
+                if (!user.emailVerified) {
+                    await window.taskflowFirebase.firebaseSignOut(
+                        window.taskflowAuth
+                    );
+
+                    message.textContent =
+                        "Please verify your email first. Check your inbox or spam folder.";
+                    return;
+                }
+
+                currentUser = {
+                    name: user.displayName || "Student",
+                    email: user.email,
+                    uid: user.uid,
+                    emailVerified: user.emailVerified
+                };
+
+                document.getElementById("loginForm").reset();
+                showAuthenticatedApp();
+            } catch (error) {
+                console.error("Firebase login error:", error);
+                message.textContent = firebaseErrorMessage(error);
+            }
+        }
+
+
+        async function signOut() {
+            if (!window.taskflowFirebase || !window.taskflowAuth) return;
+
+            try {
+                await window.taskflowFirebase.firebaseSignOut(
+                    window.taskflowAuth
+                );
+
+                currentUser = null;
+                tasks = [];
+                currentFilter = "all";
+
+                document.getElementById("loginMessage").textContent = "";
+                document.getElementById("signupMessage").textContent = "";
+
+                showLoginScreen();
+                switchAuth("login");
+
+                document.getElementById("loginEmail").focus();
+            } catch (error) {
+                console.error("Firebase sign out error:", error);
+            }
+        }
+
+
+        function startFirebaseAuth() {
+            if (!window.taskflowFirebase || !window.taskflowAuth) return;
+            if (window.taskflowAuthStarted) return;
+
+            window.taskflowAuthStarted = true;
+
+            window.taskflowFirebase.onAuthStateChanged(
+                window.taskflowAuth,
+                async (user) => {
+                    if (!user) {
+                        currentUser = null;
+                        tasks = [];
+                        showLoginScreen();
+                        return;
+                    }
+
+                    if (!user.emailVerified) {
+                        currentUser = null;
+                        await window.taskflowFirebase.firebaseSignOut(
+                            window.taskflowAuth
+                        );
+                        showLoginScreen();
+                        return;
+                    }
+
+                    currentUser = {
+                        name: user.displayName || "Student",
+                        email: user.email,
+                        uid: user.uid,
+                        emailVerified: user.emailVerified
+                    };
+
+                    showAuthenticatedApp();
+                }
+            );
+        }
+
+        window.addEventListener("firebase-ready", startFirebaseAuth);
+
+        /* =====================================================
+           TASK DATA
+        ===================================================== */
 
 
         /* =====================================================
@@ -2758,8 +3445,10 @@
 
         function saveTasks() {
 
+            if (!currentUser) return;
+
             localStorage.setItem(
-                "studentTasks",
+                taskStorageKey(currentUser.email),
                 JSON.stringify(tasks)
             );
 
@@ -3262,6 +3951,11 @@
 
         function showView(view, clickedItem) {
 
+            if (!currentUser) {
+                showLoginScreen();
+                return;
+            }
+
             document
                 .querySelectorAll(".page-view")
                 .forEach(section => {
@@ -3674,6 +4368,8 @@
 
         function renderProfilePage() {
 
+            updateUserUI();
+
             const total = tasks.length;
 
             const completed =
@@ -3704,9 +4400,13 @@
            START
         ===================================================== */
 
-        renderTasks();
+        showLoginScreen();
+
+        if (window.taskflowFirebase && window.taskflowAuth) {
+            startFirebaseAuth();
+        }
 
     </script>
 
 </body>
-</html>
+</html>s
