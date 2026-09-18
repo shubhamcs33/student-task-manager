@@ -1419,6 +1419,268 @@
         }
 
 
+
+        /* =====================================================
+           PAGE VIEWS / INTERACTIVE NAVIGATION
+        ===================================================== */
+
+        .page-view {
+            display: none;
+            animation: pageFade 0.25s ease;
+        }
+
+        .page-view.active {
+            display: block;
+        }
+
+        @keyframes pageFade {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-item {
+            user-select: none;
+        }
+
+        .nav-item.profile-nav {
+            margin-top: auto;
+        }
+
+        .view-card {
+            min-height: 500px;
+        }
+
+        .page-title {
+            margin-bottom: 22px;
+        }
+
+        .page-title h2 {
+            font-size: 24px;
+            color: #edf7ff;
+        }
+
+        .page-title p {
+            margin-top: 6px;
+            color: #89a4bd;
+            font-size: 13px;
+        }
+
+        .calendar-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .calendar-month {
+            font-size: 20px;
+            font-weight: 700;
+            color: #edf7ff;
+        }
+
+        .calendar-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .calendar-btn {
+            width: 38px;
+            height: 38px;
+            border: 1px solid rgba(135,205,255,.16);
+            border-radius: 10px;
+            color: #d9edff;
+            background: rgba(5,24,43,.55);
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .calendar-btn:hover {
+            background: rgba(76,143,255,.18);
+            border-color: rgba(100,175,255,.38);
+        }
+
+        .calendar-weekdays,
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .calendar-weekdays div {
+            padding: 8px;
+            text-align: center;
+            color: #6f8da8;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+        }
+
+        .calendar-day {
+            min-height: 78px;
+            padding: 10px;
+            border: 1px solid rgba(135,205,255,.10);
+            border-radius: 12px;
+            background: rgba(2,18,35,.42);
+            color: #bdd3e7;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .calendar-day:hover {
+            border-color: rgba(100,180,255,.35);
+            background: rgba(55,125,210,.10);
+            transform: translateY(-1px);
+        }
+
+        .calendar-day.muted {
+            opacity: .35;
+        }
+
+        .calendar-day.today {
+            border-color: rgba(92,157,255,.65);
+            box-shadow: inset 0 0 18px rgba(65,145,255,.08);
+        }
+
+        .calendar-day-number {
+            font-size: 12px;
+            font-weight: 700;
+            color: #e8f5ff;
+        }
+
+        .calendar-task-dot {
+            margin-top: 9px;
+            padding: 4px 6px;
+            border-radius: 6px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            color: #9dd0ff;
+            background: rgba(64,145,255,.13);
+            font-size: 9px;
+        }
+
+        .calendar-empty {
+            padding: 28px;
+            text-align: center;
+            color: #67839d;
+            border: 1px solid rgba(135,205,255,.08);
+            border-radius: 12px;
+            background: rgba(2,18,35,.35);
+        }
+
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 22px;
+        }
+
+        .profile-hero {
+            text-align: center;
+            padding: 34px 20px;
+        }
+
+        .profile-big-avatar {
+            width: 88px;
+            height: 88px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 30px;
+            font-weight: 800;
+            background: linear-gradient(135deg,#5597ff,#7366ff);
+            box-shadow: 0 0 30px rgba(78,148,255,.38);
+        }
+
+        .profile-hero h2 {
+            font-size: 22px;
+            color: white;
+        }
+
+        .profile-hero p {
+            margin-top: 6px;
+            color: #86a4bd;
+            font-size: 13px;
+        }
+
+        .profile-info {
+            display: grid;
+            gap: 12px;
+        }
+
+        .profile-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 15px 17px;
+            border-radius: 12px;
+            border: 1px solid rgba(135,205,255,.09);
+            background: rgba(2,18,35,.38);
+        }
+
+        .profile-row span:first-child {
+            color: #7694ad;
+            font-size: 12px;
+        }
+
+        .profile-row strong {
+            color: #dceeff;
+            font-size: 13px;
+            text-align: right;
+        }
+
+        .profile-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .mini-stat {
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(135,205,255,.10);
+            background: rgba(2,18,35,.40);
+        }
+
+        .mini-stat strong {
+            display: block;
+            font-size: 22px;
+            color: white;
+        }
+
+        .mini-stat span {
+            display: block;
+            margin-top: 4px;
+            color: #7694ad;
+            font-size: 11px;
+        }
+
+        .progress-big {
+            margin: 22px 0;
+        }
+
+        .progress-big .progress-bar {
+            height: 14px;
+        }
+
+        @media (max-width: 720px) {
+            .profile-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .calendar-day {
+                min-height: 62px;
+                padding: 7px;
+            }
+
+            .calendar-task-dot {
+                font-size: 8px;
+            }
+        }
+
         /* =====================================================
            RESPONSIVE
         ===================================================== */
@@ -1814,6 +2076,8 @@
 
             <div
                 class="nav-item active"
+                data-view="dashboard"
+                onclick="showView('dashboard', this)"
             >
                 🏠
                 Dashboard
@@ -1822,7 +2086,8 @@
 
             <div
                 class="nav-item"
-                onclick="focusTasks()"
+                data-view="tasks"
+                onclick="showView('tasks', this)"
             >
                 📋
                 My Tasks
@@ -1831,6 +2096,8 @@
 
             <div
                 class="nav-item"
+                data-view="calendar"
+                onclick="showView('calendar', this)"
             >
                 📅
                 Calendar
@@ -1839,7 +2106,8 @@
 
             <div
                 class="nav-item"
-                onclick="focusProgress()"
+                data-view="progress"
+                onclick="showView('progress', this)"
             >
                 📊
                 Progress
@@ -1872,7 +2140,12 @@
                 </div>
 
 
-                <div class="profile">
+                <div
+                    class="profile"
+                    style="cursor:pointer;"
+                    onclick="showView('profile')"
+                    title="Open Profile"
+                >
 
                     <strong>
                         Student
@@ -1886,6 +2159,9 @@
 
             </div>
 
+
+            <!-- DASHBOARD VIEW -->
+            <div id="dashboardView" class="page-view active">
 
             <!-- STATISTICS -->
 
@@ -2249,6 +2525,203 @@
 
             </section>
 
+            </div>
+
+
+            <!-- MY TASKS VIEW -->
+            <section id="tasksView" class="page-view">
+                <div class="page-title">
+                    <h2>📋 My Tasks</h2>
+                    <p>Manage your tasks, search them, and track completion.</p>
+                </div>
+
+                <div class="card view-card" id="tasksCardPage">
+                    <div class="card-header">
+                        <h2>All Tasks</h2>
+                    </div>
+
+                    <div class="task-form">
+                        <input
+                            id="taskInputPage"
+                            class="task-input"
+                            type="text"
+                            placeholder="What do you need to accomplish?"
+                            autocomplete="off"
+                        >
+                        <button class="add-btn" onclick="addTaskFromPage()">
+                            + Add Task
+                        </button>
+                    </div>
+
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input
+                            id="searchInputPage"
+                            type="text"
+                            placeholder="Search your tasks..."
+                            oninput="syncPageSearch()"
+                        >
+                    </div>
+
+                    <div class="filters">
+                        <button class="filter active" onclick="setPageFilter('all', this)">All</button>
+                        <button class="filter" onclick="setPageFilter('pending', this)">Pending</button>
+                        <button class="filter" onclick="setPageFilter('completed', this)">Completed</button>
+                    </div>
+
+                    <div id="taskListPage"></div>
+                </div>
+            </section>
+
+
+            <!-- CALENDAR VIEW -->
+            <section id="calendarView" class="page-view">
+                <div class="page-title">
+                    <h2>📅 Calendar</h2>
+                    <p>See when your tasks were added and keep your study schedule organized.</p>
+                </div>
+
+                <div class="card view-card">
+                    <div class="calendar-toolbar">
+                        <div class="calendar-month" id="calendarMonth"></div>
+                        <div class="calendar-actions">
+                            <button class="calendar-btn" onclick="changeMonth(-1)">‹</button>
+                            <button class="calendar-btn" onclick="goToday()">Today</button>
+                            <button class="calendar-btn" onclick="changeMonth(1)">›</button>
+                        </div>
+                    </div>
+
+                    <div class="calendar-weekdays">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+
+                    <div class="calendar-grid" id="calendarGrid"></div>
+
+                    <div style="margin-top:20px;" id="calendarDetails"></div>
+                </div>
+            </section>
+
+
+            <!-- PROGRESS VIEW -->
+            <section id="progressView" class="page-view">
+                <div class="page-title">
+                    <h2>📊 Progress</h2>
+                    <p>Track your overall task completion.</p>
+                </div>
+
+                <div class="content-grid">
+                    <div class="card view-card">
+                        <div class="card-header">
+                            <h2>Overall Progress</h2>
+                        </div>
+
+                        <div class="profile-stat-grid">
+                            <div class="mini-stat">
+                                <strong id="progressTotalPage">0</strong>
+                                <span>Total Tasks</span>
+                            </div>
+                            <div class="mini-stat">
+                                <strong id="progressCompletedPage">0</strong>
+                                <span>Completed</span>
+                            </div>
+                            <div class="mini-stat">
+                                <strong id="progressPendingPage">0</strong>
+                                <span>Pending</span>
+                            </div>
+                        </div>
+
+                        <div class="progress-big">
+                            <div class="progress-header">
+                                <span>Completion</span>
+                                <strong id="progressPercentPage">0%</strong>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFillPage"></div>
+                            </div>
+                        </div>
+
+                        <div class="study-tip">
+                            <h3>💡 Keep Going</h3>
+                            <p>Small completed tasks add up. Keep your pending list short and work through it consistently.</p>
+                        </div>
+                    </div>
+
+                    <div class="card view-card">
+                        <div class="card-header">
+                            <h2>Recent Tasks</h2>
+                        </div>
+                        <div id="progressTaskList"></div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PROFILE VIEW -->
+            <section id="profileView" class="page-view">
+                <div class="page-title">
+                    <h2>👤 Profile</h2>
+                    <p>Your TaskFlow student profile.</p>
+                </div>
+
+                <div class="profile-layout">
+                    <div class="card profile-hero">
+                        <div class="profile-big-avatar">S</div>
+                        <h2>Student</h2>
+                        <p>Student Task Manager</p>
+
+                        <div class="profile-stat-grid">
+                            <div class="mini-stat">
+                                <strong id="profileTotal">0</strong>
+                                <span>Total</span>
+                            </div>
+                            <div class="mini-stat">
+                                <strong id="profileDone">0</strong>
+                                <span>Done</span>
+                            </div>
+                            <div class="mini-stat">
+                                <strong id="profileRate">0%</strong>
+                                <span>Progress</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card view-card">
+                        <div class="card-header">
+                            <h2>Profile Information</h2>
+                        </div>
+
+                        <div class="profile-info">
+                            <div class="profile-row">
+                                <span>Name</span>
+                                <strong>Student</strong>
+                            </div>
+                            <div class="profile-row">
+                                <span>Role</span>
+                                <strong>Student</strong>
+                            </div>
+                            <div class="profile-row">
+                                <span>Application</span>
+                                <strong>TaskFlow</strong>
+                            </div>
+                            <div class="profile-row">
+                                <span>Account Type</span>
+                                <strong>Local Student Profile</strong>
+                            </div>
+                            <div class="profile-row">
+                                <span>Data Storage</span>
+                                <strong>Browser Local Storage</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
 
         </main>
 
@@ -2324,7 +2797,9 @@
 
                 title: title,
 
-                completed: false
+                completed: false,
+
+                createdAt: new Date().toISOString()
 
             };
 
@@ -2769,32 +3244,461 @@
         ===================================================== */
 
         function focusTasks() {
-
-            document
-                .getElementById(
-                    "tasksCard"
-                )
-                .scrollIntoView({
-                    behavior:
-                        "smooth"
-                });
-
+            showView("tasks");
         }
 
 
         function focusProgress() {
-
-            document
-                .getElementById(
-                    "progressCard"
-                )
-                .scrollIntoView({
-                    behavior:
-                        "smooth"
-                });
-
+            showView("progress");
         }
 
+
+
+        /* =====================================================
+           VIEW NAVIGATION
+        ===================================================== */
+
+        let calendarDate = new Date();
+
+        function showView(view, clickedItem) {
+
+            document
+                .querySelectorAll(".page-view")
+                .forEach(section => {
+                    section.classList.remove("active");
+                });
+
+            const target = document.getElementById(view + "View");
+
+            if (target) {
+                target.classList.add("active");
+            }
+
+            document
+                .querySelectorAll(".nav-item")
+                .forEach(item => {
+                    item.classList.remove("active");
+                });
+
+            if (clickedItem) {
+                clickedItem.classList.add("active");
+            } else {
+                const nav = document.querySelector(
+                    `.nav-item[data-view="${view}"]`
+                );
+                if (nav) {
+                    nav.classList.add("active");
+                }
+            }
+
+            if (view === "calendar") {
+                renderCalendar();
+            }
+
+            if (view === "tasks") {
+                renderTasksPage();
+            }
+
+            if (view === "progress") {
+                renderProgressPage();
+            }
+
+            if (view === "profile") {
+                renderProfilePage();
+            }
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+
+        function addTaskFromPage() {
+
+            const input =
+                document.getElementById("taskInputPage");
+
+            const title =
+                input.value.trim();
+
+            if (!title) {
+                input.focus();
+                return;
+            }
+
+            tasks.unshift({
+                id: Date.now(),
+                title: title,
+                completed: false,
+                createdAt: new Date().toISOString()
+            });
+
+            saveTasks();
+
+            input.value = "";
+
+            renderTasksPage();
+            updateStats();
+            input.focus();
+        }
+
+
+        function setPageFilter(filter, button) {
+
+            currentFilter = filter;
+
+            document
+                .querySelectorAll("#tasksView .filter")
+                .forEach(btn => {
+                    btn.classList.remove("active");
+                });
+
+            button.classList.add("active");
+
+            renderTasksPage();
+        }
+
+
+        function syncPageSearch() {
+            renderTasksPage();
+        }
+
+
+        function renderTasksPage() {
+
+            const list =
+                document.getElementById("taskListPage");
+
+            if (!list) return;
+
+            const search =
+                (document.getElementById("searchInputPage")?.value || "")
+                .toLowerCase()
+                .trim();
+
+            let filtered = tasks;
+
+            if (currentFilter === "pending") {
+                filtered = filtered.filter(task => !task.completed);
+            }
+
+            if (currentFilter === "completed") {
+                filtered = filtered.filter(task => task.completed);
+            }
+
+            if (search) {
+                filtered = filtered.filter(task =>
+                    task.title.toLowerCase().includes(search)
+                );
+            }
+
+            if (!filtered.length) {
+
+                list.innerHTML = `
+                    <div class="empty">
+                        <div class="empty-icon">✦</div>
+                        No tasks here yet.
+                    </div>
+                `;
+
+                return;
+            }
+
+            list.innerHTML = filtered.map(task => `
+                <div class="task">
+                    <div
+                        class="check ${task.completed ? "completed" : ""}"
+                        onclick="toggleTask(${task.id}); renderTasksPage();"
+                    ></div>
+
+                    <div class="task-info">
+                        <div class="task-title ${task.completed ? "completed" : ""}">
+                            ${escapeHTML(task.title)}
+                        </div>
+                        <div class="task-meta">
+                            <span class="badge student-badge">Student Task</span>
+                        </div>
+                    </div>
+
+                    <button
+                        class="delete-btn"
+                        onclick="deleteTask(${task.id}); renderTasksPage();"
+                        title="Delete task"
+                    >🗑️</button>
+                </div>
+            `).join("");
+        }
+
+
+        function getTaskDate(task) {
+
+            if (task.createdAt) {
+                return new Date(task.createdAt);
+            }
+
+            return null;
+        }
+
+
+        function dateKey(date) {
+
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, "0");
+            const d = String(date.getDate()).padStart(2, "0");
+
+            return `${y}-${m}-${d}`;
+        }
+
+
+        function renderCalendar() {
+
+            const grid =
+                document.getElementById("calendarGrid");
+
+            const monthLabel =
+                document.getElementById("calendarMonth");
+
+            const details =
+                document.getElementById("calendarDetails");
+
+            if (!grid || !monthLabel) return;
+
+            const year = calendarDate.getFullYear();
+            const month = calendarDate.getMonth();
+
+            monthLabel.textContent =
+                new Intl.DateTimeFormat("en-US", {
+                    month: "long",
+                    year: "numeric"
+                }).format(calendarDate);
+
+            const firstDay =
+                new Date(year, month, 1).getDay();
+
+            const daysInMonth =
+                new Date(year, month + 1, 0).getDate();
+
+            const previousDays =
+                new Date(year, month, 0).getDate();
+
+            const todayKey =
+                dateKey(new Date());
+
+            let cells = "";
+
+            for (let i = 0; i < 42; i++) {
+
+                const dayOffset = i - firstDay + 1;
+
+                let cellDate;
+                let dayNumber;
+                let muted = false;
+
+                if (dayOffset < 1) {
+                    dayNumber = previousDays + dayOffset;
+                    cellDate = new Date(year, month - 1, dayNumber);
+                    muted = true;
+                } else if (dayOffset > daysInMonth) {
+                    dayNumber = dayOffset - daysInMonth;
+                    cellDate = new Date(year, month + 1, dayNumber);
+                    muted = true;
+                } else {
+                    dayNumber = dayOffset;
+                    cellDate = new Date(year, month, dayNumber);
+                }
+
+                const key = dateKey(cellDate);
+
+                const dayTasks =
+                    tasks.filter(task => {
+                        const taskDate = getTaskDate(task);
+                        return taskDate && dateKey(taskDate) === key;
+                    });
+
+                const taskHTML =
+                    dayTasks.slice(0, 2).map(task => `
+                        <div class="calendar-task-dot">
+                            ${escapeHTML(task.title)}
+                        </div>
+                    `).join("");
+
+                cells += `
+                    <div
+                        class="calendar-day ${muted ? "muted" : ""} ${key === todayKey ? "today" : ""}"
+                        onclick="showCalendarDay('${key}')"
+                    >
+                        <div class="calendar-day-number">${dayNumber}</div>
+                        ${taskHTML}
+                    </div>
+                `;
+            }
+
+            grid.innerHTML = cells;
+
+            const monthTasks =
+                tasks.filter(task => {
+                    const d = getTaskDate(task);
+                    return d &&
+                        d.getFullYear() === year &&
+                        d.getMonth() === month;
+                });
+
+            details.innerHTML = monthTasks.length
+                ? `<div class="calendar-empty">
+                    📚 ${monthTasks.length} task${monthTasks.length === 1 ? "" : "s"} added this month.
+                   </div>`
+                : `<div class="calendar-empty">
+                    📅 No tasks were added in this month.
+                   </div>`;
+        }
+
+
+        function showCalendarDay(key) {
+
+            const details =
+                document.getElementById("calendarDetails");
+
+            if (!details) return;
+
+            const dayTasks =
+                tasks.filter(task => {
+                    const d = getTaskDate(task);
+                    return d && dateKey(d) === key;
+                });
+
+            const formatted =
+                new Date(key + "T00:00:00").toLocaleDateString(
+                    "en-IN",
+                    {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    }
+                );
+
+            if (!dayTasks.length) {
+                details.innerHTML = `
+                    <div class="calendar-empty">
+                        📅 No tasks were added on ${formatted}.
+                    </div>
+                `;
+                return;
+            }
+
+            details.innerHTML = `
+                <div class="calendar-empty" style="text-align:left;">
+                    <strong style="color:#eaf5ff;">Tasks on ${formatted}</strong>
+                    <div style="margin-top:10px;">
+                        ${dayTasks.map(task => `
+                            <div style="padding:9px 0; color:#bcd5ea;">
+                                ${task.completed ? "✅" : "⏳"}
+                                ${escapeHTML(task.title)}
+                            </div>
+                        `).join("")}
+                    </div>
+                </div>
+            `;
+        }
+
+
+        function changeMonth(amount) {
+
+            calendarDate.setMonth(
+                calendarDate.getMonth() + amount
+            );
+
+            renderCalendar();
+        }
+
+
+        function goToday() {
+
+            calendarDate = new Date();
+
+            renderCalendar();
+        }
+
+
+        function renderProgressPage() {
+
+            const total = tasks.length;
+
+            const completed =
+                tasks.filter(task => task.completed).length;
+
+            const pending =
+                total - completed;
+
+            const progress =
+                total === 0
+                    ? 0
+                    : Math.round((completed / total) * 100);
+
+            document.getElementById("progressTotalPage").textContent = total;
+            document.getElementById("progressCompletedPage").textContent = completed;
+            document.getElementById("progressPendingPage").textContent = pending;
+            document.getElementById("progressPercentPage").textContent = progress + "%";
+            document.getElementById("progressFillPage").style.width = progress + "%";
+
+            const list =
+                document.getElementById("progressTaskList");
+
+            if (!tasks.length) {
+                list.innerHTML = `
+                    <div class="empty">
+                        <div class="empty-icon">📊</div>
+                        No tasks to show yet.
+                    </div>
+                `;
+                return;
+            }
+
+            list.innerHTML = tasks.slice(0, 8).map(task => `
+                <div class="task">
+                    <div class="check ${task.completed ? "completed" : ""}"></div>
+                    <div class="task-info">
+                        <div class="task-title ${task.completed ? "completed" : ""}">
+                            ${escapeHTML(task.title)}
+                        </div>
+                        <div class="task-meta">
+                            <span class="badge student-badge">
+                                ${task.completed ? "Completed" : "Pending"}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+
+        function renderProfilePage() {
+
+            const total = tasks.length;
+
+            const completed =
+                tasks.filter(task => task.completed).length;
+
+            const progress =
+                total === 0
+                    ? 0
+                    : Math.round((completed / total) * 100);
+
+            document.getElementById("profileTotal").textContent = total;
+            document.getElementById("profileDone").textContent = completed;
+            document.getElementById("profileRate").textContent = progress + "%";
+        }
+
+
+        document
+            .getElementById("taskInputPage")
+            ?.addEventListener("keydown", function(event) {
+
+                if (event.key === "Enter") {
+                    addTaskFromPage();
+                }
+
+            });
 
         /* =====================================================
            START
