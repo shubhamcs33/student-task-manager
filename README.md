@@ -52,7 +52,13 @@ The project demonstrates the use of frontend web technologies, a Node.js backend
 
 ### Cloud Deployment
 
-- Render
+- AWS EC2
+- Amazon Linux 2023
+- Node.js and Express.js
+- Nginx reverse proxy
+- EC2 instance: t3.micro
+- Public access through EC2 public IP
+- Live URL: http://13.236.162.252
 
 ## Project Structure
 
